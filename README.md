@@ -92,6 +92,14 @@ Runtime side:
 - After deactivation, no further updates to the DID state are permitted.
 - Revoked keys remain in the on-chain state as `revoked`.
 
+## Privacy & Security Considerations
+
+- All on-chain data are public, permanent, and readable by anyone.
+- Only public keys are stored on-chain; private keys must be generated, stored, and protected by the user.
+- Service endpoints and metadata may reveal sensitive information and should be used with care.
+- Key compromise requires immediate revocation or rotation to reduce risk.
+- Revoked keys remain visible in state history and should be treated as invalid by resolvers.
+
 ## Retrieving Data for a DID Document
 
 Data required to build a DID Document can be retrieved in two ways:
