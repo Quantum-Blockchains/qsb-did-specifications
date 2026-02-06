@@ -2,7 +2,7 @@
 
 ## Description
 
-The `did:qsb` method is a native, on-chain Decentralized Identifier (DID) method operating on the QSB Blockchain, built on the Substrate framework. It provides post‑quantum resistance by using the ML‑DSA‑44 algorithm (NIST FIPS 204) as its primary cryptographic mechanism. The entire DID state is stored directly on-chain and is deterministically resolved from chain state.
+The `did:qsb` method is a native, on-chain Decentralized Identifier (DID) method operating on the QSB Blockchain, built on the Substrate framework. It provides post‑quantum resistance by using the ML‑DSA‑44 algorithm (NIST FIPS 204) as its primary cryptographic mechanism. The entire DID state is stored directly on-chain and is deterministically resolved from chain state. For background, see the Quantum Blockchain whitepaper: https://www.quantumblockchains.io/introducing-quantum-secured-blockchain-a-comprehensive-whitepaper/
 
 ## DID Syntax
 
