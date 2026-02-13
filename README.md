@@ -27,6 +27,17 @@ did = "did:qsb:" || did-id
 
 Notes:
 
+- `blake2_256` means BLAKE2b (Reference: https://www.blake2.net/) with a 32-byte (256-bit) output, as used in Substrate (`sp_core::blake2_256`).
+  Hash parameters are fixed:
+  - unkeyed mode (`key = empty`)
+  - no salt
+  - no personalization
+  - output length = 32 bytes
+- `material` is hashed as raw bytes (no hex text encoding before hashing).
+- `genesis` is the raw 32-byte genesis hash of the target QSB network.
+- `pk` is the canonical raw byte encoding of the ML‑DSA‑44 public key.
+- The resulting `did_id_bytes` is exactly 32 bytes and is encoded with standard Base58 to produce `did-id`.
+
 - ML‑DSA‑44 keys are generated on the user side.
 - The private key never leaves the user’s device.
 - Only public keys are stored on-chain.
