@@ -52,7 +52,17 @@ Runtime validates:
 
 Policy:
 - `create_did` MUST reject codecs other than `0x1210`.
-- `add_key` and `rotate_key` accept any syntactically valid Multikey codec/value.
+- `add_key` and `rotate_key` use mixed policy:
+  - known codecs: runtime enforces expected raw key length,
+  - unknown codecs: allowed if Multikey syntax is valid.
+
+Known codecs with runtime length checks:
+- `0x1210` ML-DSA-44: 1312 bytes
+- `0x1211` ML-DSA-65: 1952 bytes
+- `0x1212` ML-DSA-87: 2592 bytes
+- `0x00ED` Ed25519 public key: 32 bytes
+- `0x1200` secp256k1 public key: 33 or 65 bytes
+- `0x1201` P-256 public key: 33 or 65 bytes
 
 ## On-Chain DID State (`DidDetails`)
 
@@ -93,6 +103,9 @@ Rules:
 - `revoke_key` MUST reject revoking `#update`.
 - `rotate_key` for `#update` MUST preserve `#update` as key id on the new key.
 - `rotate_key` for `#update` MUST enforce codec `0x1210` (ML-DSA-44) for the new key material.
+- `rotate_key` for `#update` MUST enforce `CapabilityInvocation` in roles.
+- `update_roles` for `#update` MUST preserve `CapabilityInvocation`.
+- signature verification for mutation calls MUST reject `#update` key state if `CapabilityInvocation` is missing.
 
 ## DID Creation
 
