@@ -88,9 +88,11 @@ DID mutation authorization is bound to a fixed update key id:
 
 Rules:
 - All mutation-call DID signatures MUST verify against the non-revoked `#update` key.
-- Additional keys MAY also carry `Authentication`, but they do not authorize state mutation unless they are the `#update` key.
+- The initial `#update` key created by runtime MUST carry role `CapabilityInvocation`.
+- Additional keys MAY also carry `Authentication` or `CapabilityInvocation`, but they do not authorize state mutation unless they are the `#update` key.
 - `revoke_key` MUST reject revoking `#update`.
 - `rotate_key` for `#update` MUST preserve `#update` as key id on the new key.
+- `rotate_key` for `#update` MUST enforce codec `0x1210` (ML-DSA-44) for the new key material.
 
 ## DID Creation
 
@@ -107,7 +109,7 @@ Runtime flow:
 3. Decode raw public key.
 4. Verify DID signature with decoded raw public key.
 5. Derive DID from raw key + genesis.
-6. Store initial key as `key_id = did:qsb:<did-id>#update`.
+6. Store initial key as `key_id = did:qsb:<did-id>#update` with role `CapabilityInvocation`.
 
 ## On-Chain Mutation Functions
 
@@ -125,6 +127,7 @@ Runtime flow:
 ## Validation Rules
 
 - DID signatures for mutation calls MUST verify against `#update`.
+- `#update` is expected to appear in DID Document capability invocation relationship.
 - `controller` (if present) must be a strict DID URI (`did:qsb:<did-id>`).
 - `service.id`:
   - fragment form `#...` (validated), or
